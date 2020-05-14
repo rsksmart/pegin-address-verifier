@@ -1,0 +1,26 @@
+{
+  "name": "pegin-address-verificator",
+  "description": "Tool to verify if the BTC address will be accepted by RSK peg-in",
+  "keywords": [
+    "btc",
+    "bitcoin",
+    "segwit",
+    "crypto",
+    "address",
+    "rsk",
+    "peg-in"
+  ],
+  "version": "0.1.0",
+  "license": "MIT",
+  "main": "src/pegin-address-verificator",
+  "scripts": {
+    "test": "mocha"
+  },
+  "dependencies": {
+    "jssha": "2.3.1"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "mocha": "^7.1.2"
+  }
+}
