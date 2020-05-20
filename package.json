@@ -14,6 +14,7 @@
   "license": "MIT",
   "main": "src/pegin-address-verificator",
   "scripts": {
+    "build-umd": "rollup --config rollup.umd.config.js",
     "test": "mocha"
   },
   "dependencies": {
