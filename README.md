@@ -25,12 +25,42 @@ Given an address information (the object obtained calling `getAddressInformation
 
 ## How to use it
 
-Simply require the package and use the available methods.
-e.g.
-```
+### NodeJs
+
+Require the package and use the available methods.
+
+Sample usage:
+
+```javascript
 const peginAddressVerificator = require('pegin-address-verificator');
 let address = '12QeMLzSrB8XH8FvEzPMVoRxVAzTr5XM2y';
 let addressInformation = peginAddressVerificator.getAddressInformation(address);
 let canPegIn = peginAddressVerificator.canPegIn(addressInformation);
 console.log(`can peg-in with ${address}? ${canPegIn}`);
+```
+
+### Browser
+
+Generate the browser bundle:
+
+```shell
+npm run build-umd
+```
+
+Include this file in your webpage, and interact with `RskPegInAddressVerifier`.
+
+Sample usage:
+
+```javascript
+//isValidAddress
+RskPegInAddressVerifier.isValidAddress('mzBc4XEFSdzCDcTxAgf6EZXgsZWpztRhef', 'testnet');
+// true
+
+// getAddressInfo
+RskPegInAddressVerifier.isValidAddress('mzBc4XEFSdzCDcTxAgf6EZXgsZWpztRhef');
+// {"network":"testnet","type":"p2pkh"}
+
+// canPegIn
+RskPegInAddressVerifier.isValidAddress({ network: 'testnet', type: 'p2pkh' });
+// true
 ```
