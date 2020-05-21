@@ -1,4 +1,4 @@
-# pegin-address-verificator
+# pegin-address-verifier
 
 This NPM tool can be used to verify address before interacting with the two-way peg system of the RSK network.
 
@@ -32,10 +32,10 @@ Require the package and use the available methods.
 Sample usage:
 
 ```javascript
-const peginAddressVerificator = require('pegin-address-verificator');
+const peginAddressVerifier = require('pegin-address-verifier');
 let address = '12QeMLzSrB8XH8FvEzPMVoRxVAzTr5XM2y';
-let addressInformation = peginAddressVerificator.getAddressInformation(address);
-let canPegIn = peginAddressVerificator.canPegIn(addressInformation);
+let addressInformation = peginAddressVerifier.getAddressInformation(address);
+let canPegIn = peginAddressVerifier.canPegIn(addressInformation);
 console.log(`can peg-in with ${address}? ${canPegIn}`);
 ```
 

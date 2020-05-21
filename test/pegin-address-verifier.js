@@ -1,27 +1,27 @@
 const chai = require('chai');
 const expect = chai.expect;
 
-const validator = require('../src/pegin-address-verificator');
+const verifier = require('../src/pegin-address-verifier');
 const { NETWORKS, ADDRESS_TYPES } = require('../src/crypto/constants');
 
 function valid (address, networkType) {
-    var result = validator.isValidAddress(address, networkType);
+    var result = verifier.isValidAddress(address, networkType);
     expect(result).to.be.true;
 }
 
 function invalid (address, networkType) {
-    var result = validator.isValidAddress(address, networkType);
+    var result = verifier.isValidAddress(address, networkType);
     expect(result).to.be.false;
 }
 
 function validGetAddressInfo(address, expectedType, expectedNetwork) {
-    let result = validator.getAddressInformation(address);
+    let result = verifier.getAddressInformation(address);
     expect(result.type).to.be.equal(expectedType);
     expect(result.network).to.be.equal(expectedNetwork);
 }
 
 function invalidGetAddressInfo(address) {
-    let result = validator.getAddressInformation(address);
+    let result = verifier.getAddressInformation(address);
     expect(result).to.be.null;
 }
 
@@ -102,12 +102,12 @@ describe('getAddressInfo tests', () => {
 
 describe('canPegIn tests', () => {
     it('P2KH', () => {
-        expect(validator.canPegIn({ type: ADDRESS_TYPES.P2PKH })).to.be.true;
+        expect(verifier.canPegIn({ type: ADDRESS_TYPES.P2PKH })).to.be.true;
     });
     it('P2SH', () => {
-        expect(validator.canPegIn({ type: ADDRESS_TYPES.P2SH })).to.be.true;
+        expect(verifier.canPegIn({ type: ADDRESS_TYPES.P2SH })).to.be.true;
     });
     it('BECH32', () => {
-        expect(validator.canPegIn({ type: ADDRESS_TYPES.BECH32 })).to.be.false;
+        expect(verifier.canPegIn({ type: ADDRESS_TYPES.BECH32 })).to.be.false;
     });
 });
