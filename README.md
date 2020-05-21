@@ -41,7 +41,7 @@ console.log(`can peg-in with ${address}? ${canPegIn}`);
 
 ### Browser
 
-Generate the browser bundle:
+Generate the browser bundle (UMD):
 
 ```shell
 npm run build-umd
@@ -64,3 +64,17 @@ RskPegInAddressVerifier.isValidAddress('mzBc4XEFSdzCDcTxAgf6EZXgsZWpztRhef');
 RskPegInAddressVerifier.isValidAddress({ network: 'testnet', type: 'p2pkh' });
 // true
 ```
+
+## Demo
+
+Run the following command to server up the demo page,
+including the browser bundled version of this package:
+
+```shell
+npm run demo
+```
+
+- Visit [http://localhost:2345/](http://localhost:2345/).
+- Open browser dev tools and use `RskPegInAddressVerifier` directly if desired.
+- Alternatively enter an address, select the address type, and select a network in the fields displayed.
+- Observe the output
