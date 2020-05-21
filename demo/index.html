@@ -1,0 +1,99 @@
+<html>
+  <head>
+    <title>RSK Plugin Address Verifier Demo</title>
+  </head>
+  <body>
+    <p>Serve up the demo page using the following command</p>
+    <pre>npx http-server -c-1 -p 2345 ./dist</pre>
+    <p>Visit <a href="http://localhost:2345">http://localhost:2345</a></p>
+    <p>Open dev tools and use "RskPegInAddressVerifier" directly if desired.</p>
+    <p>Alternatively enter an address, select the address type, and select a network in the fields below.</p>
+    <div>
+      <input type="text" class="address">
+      <select class="address-types">
+        <option value="p2pkh">P2PKH</option>
+        <option value="p2sh">P2SH</option>
+        <option value="bech3">BECH32</option>
+      </select>
+      <select class="networks">
+        <option value="mainnet">Mainnet</option>
+        <option value="testnet">Testnet</option>
+      </select>
+</select>
+    </div>
+    <div class="output">
+      <p>isValidAddress</p>
+      <pre class="is-valid-address"></pre>
+      <p>getAddressInfo</p>
+      <pre class="get-address-info"></pre>
+      <p>canPegIn</p>
+      <pre class="can-peg-in"></pre>
+    </div>
+    <script src="umd.js"></script>
+    <script>
+      // input elements
+      var addressEl =
+        document.querySelector('.address');
+      var addressTypesEl =
+        document.querySelector('.address-types');
+      var networksEl =
+        document.querySelector('.networks');
+
+      // output elements
+      var isValidAddressEl =
+        document.querySelector('.is-valid-address');
+      var getAddressInfoEl =
+        document.querySelector('.get-address-info');
+      var canPegInEl =
+        document.querySelector('.can-peg-in');
+
+      // input change triggers
+      addressEl
+        .addEventListener('change', inputChanged);
+      addressTypesEl
+        .addEventListener('change', inputChanged);
+      networksEl
+        .addEventListener('change', inputChanged);
+
+      function inputChanged() {
+        clearOutputs();
+
+        var address = addressEl.value.trim();
+        var addressType = addressTypesEl.value.trim();
+        var network = networksEl.value.trim();
+        console.log({
+          address,
+          addressType,
+          network,
+        });
+
+        var isValidAddress = RskPegInAddressVerifier.isValidAddress(address, network);
+        isValidAddressEl.innerHTML =
+          'RskPegInAddressVerifier.isValidAddress(\'' + address + '\', \'' + network + '\') = ' +
+          String(isValidAddress);
+        if (!isValidAddress) {
+          return;
+        }
+
+        var getAddressInfo = RskPegInAddressVerifier.getAddressInformation(address);
+        var getAddressInfoStr = JSON.stringify(getAddressInfo);
+        getAddressInfoEl.innerHTML =
+          'RskPegInAddressVerifier.isValidAddress(\'' + address + '\') = ' +
+          getAddressInfoStr;
+
+        var canPegIn = RskPegInAddressVerifier.canPegIn(getAddressInfo);
+        canPegInEl.innerHTML =
+          'RskPegInAddressVerifier.isValidAddress(' + getAddressInfoStr + ') = ' +
+          String(canPegIn);
+      }
+
+      function clearOutputs() {
+        isValidAddressEl.innerHTML = '?';
+        getAddressInfoEl.innerHTML = '?';
+        canPegInEl.innerHTML = '?';
+      }
+
+      clearOutputs();
+    </script>
+  </body>
+</html>
