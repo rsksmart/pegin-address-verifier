@@ -71,19 +71,20 @@
         isValidAddressEl.innerHTML =
           'RskPegInAddressVerifier.isValidAddress(\'' + address + '\', \'' + network + '\') = ' +
           String(isValidAddress);
-        if (!isValidAddress) {
-          return;
-        }
 
         var getAddressInfo = RskPegInAddressVerifier.getAddressInformation(address);
         var getAddressInfoStr = JSON.stringify(getAddressInfo);
         getAddressInfoEl.innerHTML =
-          'RskPegInAddressVerifier.isValidAddress(\'' + address + '\') = ' +
+          'RskPegInAddressVerifier.getAddressInformation(\'' + address + '\') = ' +
           getAddressInfoStr;
+
+        if (!isValidAddress || !getAddressInfo) {
+          return;
+        }
 
         var canPegIn = RskPegInAddressVerifier.canPegIn(getAddressInfo);
         canPegInEl.innerHTML =
-          'RskPegInAddressVerifier.isValidAddress(' + getAddressInfoStr + ') = ' +
+          'RskPegInAddressVerifier.canPegIn(' + getAddressInfoStr + ') = ' +
           String(canPegIn);
       }
 
