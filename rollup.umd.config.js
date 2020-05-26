@@ -6,6 +6,7 @@ const config = {
   output: {
     file: 'dist/umd.js',
     format: 'umd',
+    exports: 'named',
     name: 'RskPegInAddressVerifier',
   },
   plugins: [
