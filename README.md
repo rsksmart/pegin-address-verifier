@@ -12,11 +12,12 @@ run `npm install`.
 Given a `string` representing a BTC address and the network (`mainnet` or `testnet`), will indicate with a `boolean` if the address is valid or not.
 
 ### getAddressInformation
-Given a `string` representing a BTC address, will return information about the address. The information includes the type and the network it belongs to. e.g.:
+Given a `string` representing a BTC address, will return information about the address. The information includes the type and the network it belongs to. In case of a P2PKH or P2SH address type, the information also includes the script hash that can be used to obtain the address. This is useful for peg-in protocol version 1, see [RSKIP 170](https://github.com/rsksmart/RSKIPs/blob/master/IPs/RSKIP170.md) e.g.:
 ```
 {
  type: 'p2pkh',
- network: 'mainnet'
+ network: 'mainnet',
+ scriptPubKey: 'ccc198c15d8344c73da67a75509a85a8f4226636'
 }
 ```
 If the address is not a valid one, this method will return `null`

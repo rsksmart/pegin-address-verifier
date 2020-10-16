@@ -6,10 +6,17 @@ const ADDRESS_TYPES = {
 
 const NETWORKS = {
     MAINNET: 'mainnet',
-    TESTNET: 'testnet'
+    TESTNET: 'testnet',
+    REGTEST: 'regtest'
+}
+
+const HASH_FIELD_NAMES = {
+    p2pkh: 'scriptPubKey',
+    p2sh: 'scriptHash'
 }
 
 module.exports = {
     ADDRESS_TYPES,
-    NETWORKS
+    NETWORKS,
+    HASH_FIELD_NAMES
 };

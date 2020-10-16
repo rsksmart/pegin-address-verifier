@@ -10,13 +10,14 @@
     "rsk",
     "peg-in"
   ],
-  "version": "0.1.0",
+  "version": "0.2.0",
   "license": "MIT",
   "main": "src/pegin-address-verificator",
   "scripts": {
     "build-umd": "rollup --config rollup.umd.config.js",
     "demo": "npm run build-umd && cp ./dist/umd.js ./demo/umd.js && echo \"Please visit http://localhost:2345/\" && npx http-server@0.12.1 -c-1 -p 2345 ./demo",
-    "test": "mocha"
+    "test": "mocha",
+    "test-coverage": "nyc --check-coverage  --branches 95 --statements 95 --lines 95 mocha test/*.js"
   },
   "dependencies": {
     "jssha": "^3.1.0"
