@@ -59,6 +59,7 @@ describe('isValidAddress tests', () => {
         valid('BC1SW50QA3JX3S');
         valid('bc1zw508d6qejxtdg4y5r3zarvaryvg6kdaj');
         valid('tb1qqqqqp399et2xygdj5xreqhjjvcmzhxw4aywxecjdzew6hylgvsesrxh6hy');
+        valid('bcrt1qjnwa5en4daac4dmv3v4h506tfe2ehfx96zg8f4');
     });
     it('invalid cases', function () {
         invalid(''); //reject blank
@@ -70,8 +71,10 @@ describe('isValidAddress tests', () => {
         invalid('%%@', NETWORKS.TESTNET); //reject invalid base58 string
         invalid('1A1zP1ePQGefi2DMPTifTL5SLmv7DivfNa', NETWORKS.TESTNET); //reject invalid address
         invalid('bd839e4f6fadb293ba580df5dea7814399989983', NETWORKS.TESTNET);  //reject transaction id's
+        invalid('bcrt1qjnwa5en4daac4dmv3v4h506tfe2ehfx96zg8f4', NETWORKS.TESTNET);
 
         invalid('tb1qew3rpu4pvr0pftc8qtllll2cyam0p5u6rm54fd', NETWORKS.MAINNET);
+        invalid('bcrt1qjnwa5en4daac4dmv3v4h506tfe2ehfx96zg8f4', NETWORKS.MAINNET);
         invalid('tc1qw508d6qejxtdg4y5r3zarvary0c5xw7kg3g4ty');
         invalid('bc1qw508d6qejxtdg4y5r3zarvary0c5xw7kv8f3t5');
         invalid('BC13W508D6QEJXTDG4Y5R3ZARVARY0C5XW7KN40WF2');
@@ -97,6 +100,7 @@ describe('getAddressInfo tests', () => {
     it('should get info for BECH32', () => {
         validGetAddressInfo('BC1QW508D6QEJXTDG4Y5R3ZARVARY0C5XW7KV8F3T4', ADDRESS_TYPES.BECH32, NETWORKS.MAINNET);
         validGetAddressInfo('tb1qew3rpu4pvr0pftc8qtllll2cyam0p5u6rm54fd', ADDRESS_TYPES.BECH32, NETWORKS.TESTNET);
+        validGetAddressInfo('bcrt1qjnwa5en4daac4dmv3v4h506tfe2ehfx96zg8f4', ADDRESS_TYPES.BECH32 , NETWORKS.REGTEST);
     });
     it('invalid cases', () => {
         invalidGetAddressInfo('XXX');
