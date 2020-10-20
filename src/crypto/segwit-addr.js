@@ -23,12 +23,19 @@ let { ADDRESS_TYPES, NETWORKS } = require('./constants');
 
 const PREFIXES = {
   BC: 'bc',
-  TB: 'tb'
+  TB: 'tb',
+  BCRT: 'bcrt'
 }
 
 const NETWORK_BY_PREFIX = {};
 NETWORK_BY_PREFIX[PREFIXES.BC] = NETWORKS.MAINNET;
 NETWORK_BY_PREFIX[PREFIXES.TB] = NETWORKS.TESTNET;
+NETWORK_BY_PREFIX[PREFIXES.BCRT] = NETWORKS.REGTEST;
+
+const PREFIX_BY_NETWORK = {};
+PREFIX_BY_NETWORK[NETWORKS.MAINNET] = PREFIXES.BC;
+PREFIX_BY_NETWORK[NETWORKS.TESTNET] = PREFIXES.TB;
+PREFIX_BY_NETWORK[NETWORKS.REGTEST] = PREFIXES.BCRT;
 
 function convertbits (data, frombits, tobits, pad) {
   var acc = 0;
@@ -84,16 +91,14 @@ function isValidAddress(address, networkType) {
     let hrp = null;
     var ret = null;
 
-    if (networkType === NETWORKS.TESTNET || networkType === NETWORKS.MAINNET) {
-        hrp = networkType === NETWORKS.TESTNET ? PREFIXES.TB : PREFIXES.BC;
+    if (Object.values(NETWORKS).includes(networkType)) {
+        hrp = PREFIX_BY_NETWORK[networkType];
         ret = decode(hrp, address);
     } else {
-        hrp = PREFIXES.BC;
-        ret = decode(hrp, address);
-
-        if (ret === null) {
-            hrp = PREFIXES.TB;
-            ret = decode(hrp, address);
+        let prefix = getAddressPrefix(address).toLowerCase();
+        if (Object.values(PREFIXES).includes(prefix)) {
+          hrp = prefix;
+          ret = decode(hrp, address);
         }
     }
 
@@ -109,14 +114,26 @@ function getAddressInfo(address) {
   if (!address) {
     return null;
   }
-  let prefix = address.toString().substring(0,2);
-
+  let prefix = getAddressPrefix(address);
   let network = NETWORK_BY_PREFIX[prefix.toLowerCase()];
 
   if (network && isValidAddress(address, network)) {
     return { network, type: ADDRESS_TYPES.BECH32 };
   }
   return null;
+}
+
+function getAddressPrefix(address) {
+  let prefix = address.toString().substring(0,2);
+  if (prefix === PREFIXES.BC) {
+      // Could be mainnet or regtest
+      let prefixRegtest = address.toString().substring(0,4);
+      if (prefixRegtest === PREFIXES.BCRT) {
+          prefix = PREFIXES.BCRT;
+      }
+  }
+
+  return prefix;
 }
 
 module.exports = {

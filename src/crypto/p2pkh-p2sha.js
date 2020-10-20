@@ -1,6 +1,6 @@
 let base58 = require('./base58');
 let { toHex, sha256Checksum } = require('./utils');
-let { ADDRESS_TYPES, NETWORKS } = require('./constants');
+let { ADDRESS_TYPES, NETWORKS, HASH_FIELD_NAMES } = require('./constants');
 
 var DEFAULT_NETWORK_TYPE = 'prod';
 
@@ -70,8 +70,17 @@ function isValidP2PKHandP2SHAddress(address, networkType) {
 
 function getAddressInfo(address) {
     const addressType = getAddressType(address);
+    const addressInfo = ADDRESS_TYPE_INFO[addressType];
+    if (!addressInfo) {
+        return null;
+    }
 
-    return ADDRESS_TYPE_INFO[addressType] || null;
+    let decodedAddress = Buffer.from(getDecoded(address));
+    let hash = decodedAddress.slice(1, 21).toString('hex');
+    let fieldName = HASH_FIELD_NAMES[addressInfo.type];
+    addressInfo[fieldName] = hash;
+
+    return addressInfo;
 }
 
 module.exports = {
