@@ -68,7 +68,7 @@
         });
 
         var isValidAddress = RskPegInAddressVerifier.isValidAddress(address, network);
-        isValidAddressEl.innerHTML =
+        isValidAddressEl.innerText =
           'RskPegInAddressVerifier.isValidAddress(\'' + address + '\', \'' + network + '\') = ' +
           String(isValidAddress);
         if (!isValidAddress) {
@@ -77,20 +77,20 @@
 
         var getAddressInfo = RskPegInAddressVerifier.getAddressInformation(address);
         var getAddressInfoStr = JSON.stringify(getAddressInfo);
-        getAddressInfoEl.innerHTML =
+        getAddressInfoEl.innerText =
           'RskPegInAddressVerifier.isValidAddress(\'' + address + '\') = ' +
           getAddressInfoStr;
 
         var canPegIn = RskPegInAddressVerifier.canPegIn(getAddressInfo);
-        canPegInEl.innerHTML =
+        canPegInEl.innerText =
           'RskPegInAddressVerifier.isValidAddress(' + getAddressInfoStr + ') = ' +
           String(canPegIn);
       }
 
       function clearOutputs() {
-        isValidAddressEl.innerHTML = '?';
-        getAddressInfoEl.innerHTML = '?';
-        canPegInEl.innerHTML = '?';
+        isValidAddressEl.innerText = '?';
+        getAddressInfoEl.innerText = '?';
+        canPegInEl.innerText = '?';
       }
 
       clearOutputs();
