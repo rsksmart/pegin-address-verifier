@@ -7,21 +7,26 @@ function numberToHex (number) {
     }
     return hex;
 }
+
 function sha256(hexString) {
     var sha = new jsSHA('SHA-256', 'HEX');
     sha.update(hexString);
     return sha.getHash('HEX');
 }
 
-module.exports = {
-    toHex: function (arrayOfBytes) {
-        var hex = '';
-        for(var i = 0; i < arrayOfBytes.length; i++) {
-            hex += numberToHex(arrayOfBytes[i]);
-        }
-        return hex;
-    },
-    sha256Checksum: function (payload) {
-        return sha256(sha256(payload)).substr(0, 8);
+function toHex(arrayOfBytes) {
+    var hex = '';
+    for(var i = 0; i < arrayOfBytes.length; i++) {
+        hex += numberToHex(arrayOfBytes[i]);
     }
+    return hex;
+}
+
+function sha256Checksum(payload) {
+    return sha256(sha256(payload)).substr(0, 8);
+}
+
+module.exports = {
+    toHex,
+    sha256Checksum
 };
