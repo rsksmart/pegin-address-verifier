@@ -2,6 +2,7 @@ const chai = require('chai');
 const expect = chai.expect;
 
 const validator = require('../src/pegin-address-verifier');
+const utils = require('../src/crypto/utils');
 const { NETWORKS, ADDRESS_TYPES, HASH_FIELD_NAMES } = require('../src/crypto/constants');
 
 function valid (address, networkType) {
@@ -118,5 +119,12 @@ describe('canPegIn tests', () => {
     });
     it('BECH32', () => {
         expect(validator.canPegIn({ type: ADDRESS_TYPES.BECH32 })).to.be.false;
+    });
+});
+
+describe('decodeWifPrivateKey tests', () => {
+    it('parses WIF to private key', () => {
+        let wif = 'L5EZftvrYaSudiozVRzTqLcHLNDoVn7H5HSfM9BAN6tMJX8oTWz6';
+        expect(utils.decodeWifPrivateKey(wif)).to.be.eq('ef235aacf90d9f4aadd8c92e4b2562e1d9eb97f0df9ba3b508258739cb013db2');
     });
 });
