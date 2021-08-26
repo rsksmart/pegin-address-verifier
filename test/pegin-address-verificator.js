@@ -1,7 +1,7 @@
 const chai = require('chai');
 const expect = chai.expect;
 
-const validator = require('../src/pegin-address-verificator');
+const validator = require('../src/pegin-address-verifier');
 const { NETWORKS, ADDRESS_TYPES, HASH_FIELD_NAMES } = require('../src/crypto/constants');
 
 function valid (address, networkType) {

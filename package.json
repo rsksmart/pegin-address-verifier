@@ -1,5 +1,5 @@
 {
-  "name": "pegin-address-verificator",
+  "name": "pegin-address-verifier",
   "description": "Tool to verify if the BTC address will be accepted by RSK peg-in",
   "keywords": [
     "btc",
@@ -10,9 +10,9 @@
     "rsk",
     "peg-in"
   ],
-  "version": "0.2.1",
+  "version": "0.3.0",
   "license": "MIT",
-  "main": "src/pegin-address-verificator",
+  "main": "src/pegin-address-verifier",
   "scripts": {
     "build-umd": "rollup --config rollup.umd.config.js",
     "demo": "npm run build-umd && cp ./dist/umd.js ./demo/umd.js && echo \"Please visit http://localhost:2345/\" && npx http-server@0.12.1 -c-1 -p 2345 ./demo",
@@ -25,6 +25,7 @@
   "devDependencies": {
     "chai": "^4.1.2",
     "mocha": "^7.1.2",
+    "nyc": "^15.1.0",
     "rollup": "2.10.5",
     "rollup-plugin-commonjs": "10.1.0",
     "rollup-plugin-node-resolve": "5.2.0"
