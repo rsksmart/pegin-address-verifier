@@ -1,4 +1,4 @@
-var jsSHA = require('jssha/dist/sha256');
+var jsSHA = require('jssha/sha256');
 
 function numberToHex (number) {
     var hex = Math.round(number).toString(16);
