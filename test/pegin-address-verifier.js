@@ -128,3 +128,46 @@ describe('decodeWifPrivateKey tests', () => {
         expect(utils.decodeWifPrivateKey(wif)).to.be.eq('ef235aacf90d9f4aadd8c92e4b2562e1d9eb97f0df9ba3b508258739cb013db2');
     });
 });
+
+describe('createPeginV1TxData tests', () => {
+
+    it('should create pegin v1 data without btc refund address', () => {
+        const rskAddress = '0xa65C9bF91Ae59fC5bE36300D0BC271998529bb75';
+        const expectedData = '52534b5401a65C9bF91Ae59fC5bE36300D0BC271998529bb75';
+        expect(validator.createPeginV1TxData(rskAddress)).to.be.eq(expectedData);
+    });
+
+    it('should create pegin v1 data with rsk address without the 0x prefix', () => {
+        const rskAddress = 'a65C9bF91Ae59fC5bE36300D0BC271998529bb75';
+        const expectedData = '52534b5401a65C9bF91Ae59fC5bE36300D0BC271998529bb75';
+        expect(validator.createPeginV1TxData(rskAddress)).to.be.eq(expectedData);
+    });
+
+    it('should create pegin v1 data with btc refund address', () => {
+        const rskAddress = '0xa65C9bF91Ae59fC5bE36300D0BC271998529bb75';
+        const btcAddress = 'mtEjrPcxR76W7VxE7eZnptf4PqSDez4VAn';
+        const expectedData = '52534b5401a65C9bF91Ae59fC5bE36300D0BC271998529bb75018b8897e5cf38053a49aa841d6c8864a7d92cdc2b';
+        expect(validator.createPeginV1TxData(rskAddress, btcAddress)).to.be.eq(expectedData);
+    });
+
+    it('should throw error if rsk address is not provided', () => {
+        expect(() => validator.createPeginV1TxData()).to.throw('RSK destination address is required');
+    });
+
+    it('should throw error if btc refund address is invalid', () => {
+        const rskAddress = '0xa65C9bF91Ae59fC5bE36300D0BC271998529bb75';
+        const btcAddress = 'invalid';
+        expect(() => validator.createPeginV1TxData(rskAddress, btcAddress)).to.throw('Could not get address information for invalid');
+    });
+
+    it('should throw error if btc refund address is not P2PKH or P2SH', () => {
+        const rskAddress = '0xa65C9bF91Ae59fC5bE36300D0BC271998529bb75';
+        const btcAddress = 'bc1qar0srrr7xfkvy5l643lydnw9re59gtzzwf5mdq';
+        expect(() => validator.createPeginV1TxData(rskAddress, btcAddress)).to.throw('Unsupported btc refund address type: bech32');
+    });
+
+    it('should throw error if rsk address is not provided', () => {
+        expect(() => validator.createPeginV1TxData()).to.throw('RSK destination address is required');
+    });
+
+});
