@@ -60,7 +60,7 @@ const createPeginV1TxData = (rskDestinationAddress, btcRefundAddress) => {
         }
     }
     
-    return data;
+    return data.toLocaleLowerCase();
 };
 
 module.exports = {

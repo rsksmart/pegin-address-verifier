@@ -64,6 +64,20 @@ RskPegInAddressVerifier.isValidAddress('mzBc4XEFSdzCDcTxAgf6EZXgsZWpztRhef');
 // canPegIn
 RskPegInAddressVerifier.isValidAddress({ network: 'testnet', type: 'p2pkh' });
 // true
+
+// Creating pegin v1 data, without a btc refund address
+
+const rskAddress = '0xa65C9bF91Ae59fC5bE36300D0BC271998529bb75';
+const peginV1Data = RskPegInAddressVerifier.createPeginV1TxData(rskAddress);
+console.log(peginV1Data); // 52534b5401a65c9bf91ae59fc5be36300d0bc271998529bb75
+
+// Creating pegin v1 data, with a btc refund address
+
+const rskAddress = '0xa65C9bF91Ae59fC5bE36300D0BC271998529bb75';
+const btcAddress = 'mtEjrPcxR76W7VxE7eZnptf4PqSDez4VAn';
+const peginV1Data = RskPegInAddressVerifier.createPeginV1TxData(rskAddress, btcAddress);
+console.log(peginV1Data); // 52534b5401a65c9bf91ae59fc5be36300d0bc271998529bb75018b8897e5cf38053a49aa841d6c8864a7d92cdc2b
+
 ```
 
 ## Demo

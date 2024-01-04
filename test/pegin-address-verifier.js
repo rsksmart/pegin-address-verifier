@@ -133,20 +133,20 @@ describe('createPeginV1TxData tests', () => {
 
     it('should create pegin v1 data without btc refund address', () => {
         const rskAddress = '0xa65C9bF91Ae59fC5bE36300D0BC271998529bb75';
-        const expectedData = '52534b5401a65C9bF91Ae59fC5bE36300D0BC271998529bb75';
+        const expectedData = '52534b5401a65c9bf91ae59fc5be36300d0bc271998529bb75';
         expect(validator.createPeginV1TxData(rskAddress)).to.be.eq(expectedData);
     });
 
     it('should create pegin v1 data with rsk address without the 0x prefix', () => {
         const rskAddress = 'a65C9bF91Ae59fC5bE36300D0BC271998529bb75';
-        const expectedData = '52534b5401a65C9bF91Ae59fC5bE36300D0BC271998529bb75';
+        const expectedData = '52534b5401a65c9bf91ae59fc5be36300d0bc271998529bb75';
         expect(validator.createPeginV1TxData(rskAddress)).to.be.eq(expectedData);
     });
 
-    it('should create pegin v1 data with btc refund address', () => {
+    it('should create pegin v1 data with legacy (P2KH) btc refund address', () => {
         const rskAddress = '0xa65C9bF91Ae59fC5bE36300D0BC271998529bb75';
         const btcAddress = 'mtEjrPcxR76W7VxE7eZnptf4PqSDez4VAn';
-        const expectedData = '52534b5401a65C9bF91Ae59fC5bE36300D0BC271998529bb75018b8897e5cf38053a49aa841d6c8864a7d92cdc2b';
+        const expectedData = '52534b5401a65c9bf91ae59fc5be36300d0bc271998529bb75018b8897e5cf38053a49aa841d6c8864a7d92cdc2b';
         expect(validator.createPeginV1TxData(rskAddress, btcAddress)).to.be.eq(expectedData);
     });
 
@@ -166,8 +166,11 @@ describe('createPeginV1TxData tests', () => {
         expect(() => validator.createPeginV1TxData(rskAddress, btcAddress)).to.throw('Unsupported btc refund address type: bech32');
     });
 
-    it('should throw error if rsk address is not provided', () => {
-        expect(() => validator.createPeginV1TxData()).to.throw('RSK destination address is required');
+    it('should create pegin v1 data with P2SH btc address', () => {
+        const rskAddress = '0xa65C9bF91Ae59fC5bE36300D0BC271998529bb75';
+        const btcP2shAddress = '2NApACaPzQvsrp3V43sNcivjMKdruegzdYC';
+        const expectedData = '52534b5401a65c9bf91ae59fc5be36300d0bc271998529bb7502c0b4b3f4ab1708ccdb095acb2e36b2d2d151a4cc';
+        expect(validator.createPeginV1TxData(rskAddress, btcP2shAddress)).to.be.eq(expectedData);
     });
 
 });
